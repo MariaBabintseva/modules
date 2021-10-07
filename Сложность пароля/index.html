@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Введите пароль</h1>
+    <input type="password" class="password">
+    <p></p>
+
+    <script src="node_modules\passwordmeter-js\index.js"></script>
+    <script>
+        const password = document.querySelector('.password')
+        password.addEventListener('input', function () {
+            const p = document.querySelector('p')
+            if (password.value.length === 0) {
+                p.textContent = ''
+            } else {
+                p.textContent = `Сложность пароля ${passwordMeter.check(password.value).complexity} из 5`
+            }
+        })
+    </script>
+
+</body>
+
+</html>

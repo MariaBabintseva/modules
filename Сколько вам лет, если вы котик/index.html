@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .age {
+        display: flex;
+    }
+
+    .button {
+        width: 20px;
+        height: 20px;
+        align-self: flex-end;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+</style>
+
+<body>
+    <p>Введите вашу дату рождения</p>
+    <input type="text" placeholder="ГГГГ-ММ-ДД" class="date_of_birth">
+    <div class="age">
+        <div class="human">
+            <p>Ваш возраст</p>
+            <input class="your_age"></input>
+        </div>
+        <button class="button">=</button>
+        <div class="cat">
+            <p>Если бы вы были котиком</p>
+            <input class="cat_age"></input>
+        </div>
+
+
+
+    </div>
+
+
+    <script src="node_modules\cat-age-calculator\dist\index_bundle.js"></script>
+    <script src="node_modules\get-age\index.js"></script>
+
+    <script>
+        const dateOfBirth = document.querySelector('.date_of_birth')
+        const button = document.querySelector('.button')
+
+
+        const cat = document.querySelector('.cat_age')
+
+        dateOfBirth.addEventListener('input', function () {
+            const yourAge = document.querySelector('.your_age')
+
+            const age = getAge(dateOfBirth.value)
+            yourAge.value = age
+
+            button.addEventListener('click', function () {
+                const catAge = catCalculator.getCatAgeObject(+age)
+                cat.value = `${catAge.years} лет ${catAge.months} месяцев`
+            })
+        })
+    </script>
+</body>
+
+</html>

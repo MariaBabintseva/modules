@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <link rel="stylesheet" href="node_modules\color-calendar\dist\css\theme-basic.css">
 </head>
 <style>
     .age {
@@ -24,6 +26,7 @@
 <body>
     <p>Введите вашу дату рождения</p>
     <input type="text" placeholder="ГГГГ-ММ-ДД" class="date_of_birth">
+    <div id="color-calendar"></div>
     <div class="age">
         <div class="human">
             <p>Ваш возраст</p>
@@ -42,6 +45,9 @@
 
     <script src="node_modules\cat-age-calculator\dist\index_bundle.js"></script>
     <script src="node_modules\get-age\index.js"></script>
+    <script src="node_modules\color-calendar\dist\bundle.js"></script>
+    <script src="node_modules\get-age\index.js"></script>
+
 
     <script>
         const dateOfBirth = document.querySelector('.date_of_birth')
@@ -50,17 +56,77 @@
 
         const cat = document.querySelector('.cat_age')
 
-        dateOfBirth.addEventListener('input', function () {
+        dateOfBirth.addEventListener('click', function () {
+            new Calendar()
+
+
+            const colorCalendar = document.querySelector('.color-calendar')
+
+            const calendarDays = document.querySelector('.calendar__days')
+            const year = document.querySelector('.calendar__year')
+            const month = document.querySelector('.calendar__month')
+            const day = document.querySelector('.calendar__day-selected')
             const yourAge = document.querySelector('.your_age')
 
-            const age = getAge(dateOfBirth.value)
-            yourAge.value = age
+            calendarDays.addEventListener('click', function (e) {
 
-            button.addEventListener('click', function () {
-                const catAge = catCalculator.getCatAgeObject(+age)
-                cat.value = `${catAge.years} лет ${catAge.months} месяцев`
+                let monthNumber;
+                switch (month.textContent) {
+                    case 'январь':
+                        monthNumber = '01';
+                        break;
+                    case 'февраль':
+                        monthNumber = '02';
+                        break;
+                    case 'март':
+                        monthNumber = '03';
+                        break;
+                    case 'апрель':
+                        monthNumber = '04';
+                        break;
+                    case 'май':
+                        monthNumber = '05';
+                        break;
+                    case 'июнь':
+                        monthNumber = '06';
+                        break;
+                    case 'июль':
+                        monthNumber = '07';
+                        break;
+                    case 'август':
+                        monthNumber = '08';
+                        break;
+                    case 'сентябрь':
+                        monthNumber = '09';
+                        break;
+                    case 'октябрь':
+                        monthNumber = '10';
+                        break;
+                    case 'ноябрь':
+                        monthNumber = '11';
+                        break;
+                    case 'декабрь':
+                        monthNumber = '12';
+                        break;
+                    default:
+                        return 0;
+                }
+
+                dateOfBirth.value = `${year.textContent}-${monthNumber}-${day.textContent.trim()}`
+                colorCalendar.textContent = ''
+
+                const age = getAge(dateOfBirth.value)
+                yourAge.value = age
+
+                button.addEventListener('click', function () {
+                    const catAge = catCalculator.getCatAgeObject(+age)
+                    cat.value = `${catAge.years} лет ${catAge.months} месяцев`
+
+                })
+
             })
         })
+
     </script>
 </body>
 
